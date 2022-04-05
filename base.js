@@ -1,3 +1,4 @@
+console.log("you are here");
 
 (function () {
     let filename = "";
@@ -20,7 +21,7 @@
 }())
 
 
-const { jsonFormattedToLine, jsonLineToFormatted } = await import('https://greaterist.github.io/js-Components/json/stringOperations.js');
+//const { jsonFormattedToLine, jsonLineToFormatted } = await import('https://greaterist.github.io/js-Components/json/stringOperations.js');
 
 function start(input, filename) {
     document.getElementById('generate').addEventListener('click', exportFile);//TODO 
@@ -123,3 +124,17 @@ function getType(_input) {
     return typeof _input;
 }
 
+
+function jsonLineToFormatted(input) {
+    try {
+        JSON.parse(input);
+    } catch (e) {
+        alert(e);
+        return null;
+    }
+    return JSON.stringify(JSON.parse(input), null, "\t");
+}
+
+function jsonFormattedToLine(input) {
+    return input.replace(/[\n\r ]/g, "");
+}
