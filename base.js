@@ -1,5 +1,3 @@
-console.log("you are here");
-
 (function () {
     let filename = "";
     function onChange(event) {
