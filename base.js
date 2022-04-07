@@ -82,7 +82,6 @@ function start(input, filename) {
             output += outputRow + `, `;
         }
         output = output.slice(0, -2) + `]`;;
-        console.log(output);
         return jsonLineToFormatted(output);
     }
 
@@ -100,17 +99,26 @@ function start(input, filename) {
         return value.value;
     }
 
-
-}
-
-
-
-function getType(_input) {
-    if (typeof _input == "object") {
-        if (_input === null) {
-            return "null"
-        } else if (_input.constructor === Array)
-            return "array"
+    function getType(_input) {
+        if (typeof _input == "object") {
+            if (_input === null) {
+                return "null"
+            } else if (_input.constructor === Array)
+                return "array"
+        }
+        return typeof _input;
     }
-    return typeof _input;
+
+    function jsonLineToFormatted(input) {
+        try {
+            JSON.parse(input);
+        } catch (e) {
+            alert(e);
+            return null;
+        }
+        return JSON.stringify(JSON.parse(input), null, "\t");
+    }
 }
+
+
+

@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="css\style.css">
 </head>
 
-<body>
-    <input id="file" type="file" />
+<body class="bg-dark">
+    <input type="file" id="file" style="display: none;" />
+    <button onclick="document.getElementById('file').click();">Browse...</button>
     <button id="generate">Download JSON</button>
     <table id="main" class="table table-bordered table-dark center"></table>
     <script src="./base.js"></script>
