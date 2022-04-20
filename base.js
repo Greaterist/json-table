@@ -27,6 +27,8 @@
 function start(input, filename) {
     const inputValues = Object.values(input);
     const inputKeys = Object.keys(input);
+    const isArrayInput = Array.isArray(input);
+    
     document.getElementById('generate').addEventListener('click', exportFile);
     let headerList = [];
     let base = document.querySelector('#main');
@@ -73,9 +75,15 @@ function start(input, filename) {
         })
         return tableData;
     }
+    
+    function createJson(input, isArrayInput){
+       if(isArrayInput){
+         return ArrayToJson(input);
+       } 
 
+     }
 
-    function createJson() {
+    function ArrayToJson(input) {
         let output = `[`;
         for (let i = 0; i < input.length; i++) { //get columns
             let outputRow = `{`;
@@ -91,7 +99,7 @@ function start(input, filename) {
     }
 
     function exportFile() {
-        let encodedUri = "data:text/json;charset=utf-8," + createJson();
+        let encodedUri = "data:text/json;charset=utf-8," + createJson(inputValues, isArrayInput);
         let link = document.createElement("a");
         link.setAttribute("href", encodedUri);
         link.setAttribute("download", filename);
