@@ -13,7 +13,7 @@
 
     function onReaderLoad(event) {
         const input = JSON.parse(event.target.result);
-        start(input, filename);
+        start(Object.values(input), filename, Object.keys(input));
     }
 
 
@@ -24,7 +24,7 @@
 
 //const { jsonFormattedToLine, jsonLineToFormatted } = await import('https://greaterist.github.io/js-Components/json/stringOperations.js');
 
-function start(input, filename) {
+function start(input, filename, rows) {
     document.getElementById('generate').addEventListener('click', exportFile);
     let headerList = [];
     let base = document.querySelector('#main');
@@ -52,7 +52,7 @@ function start(input, filename) {
         let tableData = "";
         let rowNum = 0;
         input.forEach(row => {
-            tableData += `<tr> <td>${rowNum}</td>`;
+            tableData += `<tr> <td>${rows[rowNum]}</td>`;
             let aray = [];
             Object.keys(row).map((key, index) => {
                 aray[headerList.indexOf(key)] = row[key];//generate full row
