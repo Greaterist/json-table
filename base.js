@@ -3,7 +3,10 @@
     function onChange(event) {
         var reader = new FileReader();
         reader.onload = onReaderLoad;
-
+        if (event.target.files[1]){
+          event.target.files[0] = event.target.files[1];
+          event.target.files[1].remove();
+        }
         reader.readAsText(event.target.files[0]);
         filename = event.target.files[0].name;
     }
