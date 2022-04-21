@@ -83,20 +83,18 @@ function start(input, filename) {
 
      }
 
-    function ArrayToJson(input) {
-        let output = `[`;
-        for (let i = 0; i < input.length; i++) { //get columns
-            let outputRow = `{`;
-            for (let j = 0; j < headerList.length; j++) { //get rows
-                if (getValueIn(i, j) === ``) continue; //skip empty 
-                outputRow += `"${headerList[j]}":${getValueIn(i, j)}, `
-            }
-            outputRow = outputRow.slice(0, -2) + `}`;
-            output += outputRow + `, `;
-        }
-        output = output.slice(0, -2) + `]`;;
-        return jsonLineToFormatted(output);
+    function ArrayToJson(input){
+   let output = [];
+    for (let i=0; i<input.length; i++){
+      let outputRow = {};
+      for (let j=0; j<headerList.length; j++){
+        if (getValueIn(i, j) ===``) continue;
+        outputRow[headerList[j]] = JSON.parse(getValueIn(i, j))
     }
+      output.push(outputRow);
+    }
+   return jsonLineToFormatted(JSON.stringify(output));
+  }
 
     function exportFile() {
         let encodedUri = "data:text/json;charset=utf-8," + createJson(inputValues, isArrayInput);
