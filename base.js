@@ -80,6 +80,7 @@ function start(input, filename) {
        if(isArrayInput){
          return ArrayToJson(input);
        } 
+        return ObjectToJson(input);
 
      }
 
@@ -95,6 +96,20 @@ function start(input, filename) {
     }
    return jsonLineToFormatted(JSON.stringify(output));
   }
+    
+    function ObjectToJson(input){
+   let output = {};
+    for (let i=0; i<input.length; i++){
+      let outputRow = {};
+      for (let j=0; j<headerList.length; j++){
+        if (getValueIn(i, j) ===``) continue;
+        outputRow[headerList[j]] = JSON.parse(getValueIn(i, j));
+    }
+      output[inputKeys[i]] = outputRow;
+    }
+   return jsonLineToFormatted(JSON.stringify(output));
+  }
+    
 
     function exportFile() {
         let encodedUri = "data:text/json;charset=utf-8," + createJson(inputValues, isArrayInput);
