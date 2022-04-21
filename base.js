@@ -42,7 +42,7 @@ function start(input, filename) {
             };
         })
         headerList.forEach(elem => {
-            tableHeader += `<th id="${elem}">` + elem + "</th>";
+            tableHeader += `<th id="${elem}"><input class="form-control center" type="text" value="${elem}"></th>`;
         })
         tableHeader += "</tr>";
         return tableHeader;
