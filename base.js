@@ -22,7 +22,7 @@
 }())
 
 
-//const { jsonFormattedToLine, jsonLineToFormatted } = await import('https://greaterist.github.io/js-Components/json/stringOperations.js');
+const { jsonFormattedToLine, jsonLineToFormatted } = await import('https://greaterist.github.io/js-Components/json/stringOperations.js');
 
 function start(input, filename) {
     const inputValues = Object.values(input);
@@ -135,7 +135,7 @@ function start(input, filename) {
         return typeof _input;
     }
 
-    function jsonLineToFormatted(input) {
+    /*function jsonLineToFormatted(input) {
         try {
             JSON.parse(input);
         } catch (e) {
@@ -143,7 +143,7 @@ function start(input, filename) {
             return null;
         }
         return JSON.stringify(JSON.parse(input), null, "\t");
-    }
+    }*/
 }
 
 
