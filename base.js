@@ -22,12 +22,13 @@
 }())
 
 
-const { jsonFormattedToLine, jsonLineToFormatted } = await import('https://greaterist.github.io/js-Components/json/stringOperations.js');
 
-function start(input, filename) {
+
+function async start(input, filename) {
     const inputValues = Object.values(input);
     const inputKeys = Object.keys(input);
     const isArrayInput = Array.isArray(input);
+    const { jsonFormattedToLine, jsonLineToFormatted } = await import('https://greaterist.github.io/js-Components/json/stringOperations.js');
     
     document.getElementById('generate').addEventListener('click', exportFile);
     let headerList = [];
