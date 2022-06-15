@@ -35,6 +35,12 @@ function start(input, filename) {
     let baseInner = scanJson(inputValues);
     baseInner += buildTable(inputValues);
     base.innerHTML = baseInner;
+
+    for (let i = 0; i < headerList.length; i++) {
+        document.getElementById(`${i}`).addEventListener('change', (e)=>{headerList[i]=e.target.value})
+    }
+    
+
     function scanJson(input) {
         let tableHeader = "<tr> <th></th>";
         input.forEach(row => {
@@ -45,9 +51,12 @@ function start(input, filename) {
                 }
             };
         })
+        let column=0;
         headerList.forEach(elem => {
-            tableHeader += `<th id="${elem}">` + elem + "</th>";
+            tableHeader += `<th id="${elem}"><input id="${column}" class="form-control center" type="text" value="${elem}"></th>`;
+            column++;
         })
+
         tableHeader += "</tr>";
         return tableHeader;
     }
