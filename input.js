@@ -1,4 +1,5 @@
-(function () {
+export function input() {
+    console.log("input")
     const input = new Object;
     function onChange(event) {
         var reader = new FileReader();
@@ -16,6 +17,4 @@
         convert(input);
     }
 
-    document.getElementById('file').addEventListener('change', onChange);
-
-}())
+}
