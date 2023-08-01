@@ -1,47 +1,23 @@
-(function () {
-    let filename = "";
-    function onChange(event) {
-        var reader = new FileReader();
-        reader.onload = onReaderLoad;
-        if (event.target.files[1]){
-          event.target.files[0] = event.target.files[1];
-          event.target.files[1].remove();
-        }
-        reader.readAsText(event.target.files[0]);
-        filename = event.target.files[0].name;
-    }
+import { getValueIn } from "./components";
 
-    function onReaderLoad(event) {
-        const input = JSON.parse(event.target.result);
-        start(input, filename);
-    }
-
-
-    document.getElementById('file').addEventListener('change', onChange);
-
-}())
-
-
-//const { jsonFormattedToLine, jsonLineToFormatted } = await import('https://greaterist.github.io/js-Components/json/stringOperations.js');
-
-function start(input, filename) {
+export default function start(input, filename) {
     const inputValues = Object.values(input);
     const inputKeys = Object.keys(input);
     const isArrayInput = Array.isArray(input);
-    
+
     document.getElementById('generate').addEventListener('click', exportFile);
     let headerList = [];
     let base = document.querySelector('#main');
-    let baseInner = scanJson(inputValues);
-    baseInner += buildTable(inputValues);
-    base.innerHTML = baseInner;
+    let baseInnerHTML = generateHeaderHTML(inputValues);
+    baseInnerHTML += buildTable(inputValues);
+    base.innerHTML = baseInnerHTML;
 
     for (let i = 0; i < headerList.length; i++) {
         document.getElementById(`${i}`).addEventListener('change', (e)=>{headerList[i]=e.target.value})
     }
     
 
-    function scanJson(input) {
+    function generateHeaderHTML(input) {
         let tableHeader = "<tr> <th></th>";
         input.forEach(row => {
             for (let property in row) {
@@ -51,6 +27,8 @@ function start(input, filename) {
                 }
             };
         })
+
+
         let column=0;
         headerList.forEach(elem => {
             tableHeader += `<th id="${elem}"><input id="${column}" class="form-control center" type="text" value="${elem}"></th>`;
@@ -129,20 +107,7 @@ function start(input, filename) {
         link.click();
     }
 
-    function getValueIn(x, y) {
-        let value = document.getElementById(x + `_` + y);
-        return value.value;
-    }
-
-    function getType(_input) {
-        if (typeof _input == "object") {
-            if (_input === null) {
-                return "null"
-            } else if (_input.constructor === Array)
-                return "array"
-        }
-        return typeof _input;
-    }
+    
 
     function jsonLineToFormatted(input) {
         try {
@@ -154,6 +119,3 @@ function start(input, filename) {
         return JSON.stringify(JSON.parse(input), null, "\t");
     }
 }
-
-
-
